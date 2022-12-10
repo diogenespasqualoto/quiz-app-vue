@@ -65,7 +65,16 @@ const NextQuestion = () => {
 </script>
 
 <template>
-  <h1>Hello</h1>
+  <main class="app">
+    <h1>The quiz</h1>
+
+    <section class="quiz">
+      <div class="quiz-info">
+        <span class="question">{{ getCurrentQuestion.question }}</span>
+        <span class="score">score{{ score }}/{{ questions.length }}</span>
+      </div>
+    </section>
+  </main>
 </template>
 
 <style >
