@@ -13,7 +13,7 @@ const questions = ref([
   },
   {
     question: 'What is Vuex?',
-    answer: 1,
+    answer: 2,
     options: [
       'Vue with an x ',
       'A cheese selection',
@@ -22,10 +22,10 @@ const questions = ref([
   },
   {
     question: 'What is Vue Router used for?',
-    answer: 2,
+    answer: 1,
     options: [
       'Walking in space',
-      'AA routing librariry for vue JS',
+      'A routing librariry for vue JS',
       'Burger sauce',
       'Quizzes'
     ], selected: null
@@ -58,9 +58,10 @@ const setAnswer = evt => {
 const NextQuestion = () => {
   if (currentQuestion.value < questions.value.length - 1) {
     currentQuestion.value++
-  } else {
-    quizCompleted = true
+    return
   }
+
+  quizCompleted.value = true
 }
 </script>
 
@@ -68,7 +69,7 @@ const NextQuestion = () => {
   <main class="app">
     <h1>The quiz</h1>
 
-    <section class="quiz">
+    <section class="quiz" v-if="!quizCompleted">
       <div class="quiz-info">
         <span class="question">{{ getCurrentQuestion.question }}</span>
         <span class="score">score{{ score }}/{{ questions.length }}</span>
@@ -90,6 +91,19 @@ const NextQuestion = () => {
         </label>
       </div>
 
+      <button @click="NextQuestion" :disabled="!getCurrentQuestion.selected">
+        {{
+            getCurrentQuestion.index == questions.length - 1
+              ? 'Finish'
+              : getCurrentQuestion.selected == null
+                ? 'select an option'
+                : 'Next question'
+        }}
+      </button>
+    </section>
+    <section v-else>
+      <h2>Yout have a finished the quiz!</h2>
+      <p>your score is {{ score }} / {{ questions.length }} </p>
     </section>
   </main>
 </template>
