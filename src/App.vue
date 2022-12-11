@@ -84,7 +84,9 @@ const NextQuestion = () => {
           ? 'disabled'
           : ''
         }`">
-          <input type="radio" :name="getCurrentQuestion.index" :value="index">
+          <input type="radio" :name="getCurrentQuestion.index" :value="index" v-model="getCurrentQuestion.selected"
+            @change="setAnswer">
+          <span>{{ option }}</span>
         </label>
       </div>
 
